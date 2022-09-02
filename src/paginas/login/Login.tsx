@@ -9,27 +9,37 @@ import './Login.css';
 
 
 function Login() {
+    // redireciona o usuário para determinada pagina
     let navigate = useNavigate();
+
+    // const [token, setToken] = useLocalStorage('token_bp')
+    // token_bp: "Basic"
+
+    // Hooks que vao manipular o nosso local storage para gerar token
     const [token, setToken] = useLocalStorage('token');
+
+    // useState defina como uma determinada variavel será inicializada quando o comp. for renderizado  
     const [userLogin, setUserLogin] = useState<UserLogin>(
         {
             id: 0,
-            nome: '',
-            usuario: '',
-            foto: '',
-            senha: '',
-            token: ''
+            nome: "",
+            usuario: "",
+            foto: "",
+            senha: "",
+            token: ""
         }
         )
 
+            // Função que junto com a setUserLogin irá atualizar o valor inicial da userLogin
         function updatedModel(e: ChangeEvent<HTMLInputElement>) {
 
             setUserLogin({
-                ...userLogin,
+                ...userLogin, // ... é um operador (spread operator)
                 [e.target.name]: e.target.value
             })
         }
 
+            // Hook de efeito colateral, sempre executa uma função quando o que estiver no seu Array é ALTERADO?
             useEffect(()=>{
                 if(token != ''){
                     navigate('/home')
@@ -53,7 +63,7 @@ function Login() {
                 <Box paddingX={20}>
                     <form onSubmit={onSubmit}>
                         <Typography variant='h3' gutterBottom color='textPrimary' component='h3' align='center' className='textos1'>Entrar</Typography>
-                        <TextField value={userLogin.usuario} onChange={(e:ChangeEvent<HTMLInputElement>) => updatedModel(e)} id='usuario' label='usuario' variant='outlined' name='usuario' margin='normal' fullWidth />
+                        <TextField value={userLogin.usuario} onChange={(e:ChangeEvent<HTMLInputElement>) => updatedModel(e)} id='usuario' label='email' variant='outlined' name='usuario' margin='normal' fullWidth />
                         <TextField value={userLogin.senha} onChange={(e:ChangeEvent<HTMLInputElement>) => updatedModel(e)} id='senha' label='senha' variant='outlined' name='senha' margin='normal' type='password' fullWidth />
                         <Box marginTop={2} textAlign='center'>
                                                     
