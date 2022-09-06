@@ -3,34 +3,37 @@ import { Link } from 'react-router-dom'
 import { Card, CardActions, CardContent, Button, Typography } from '@material-ui/core';
 import { Box } from '@mui/material';
 import Tema from '../../../models/Tema';
-import useLocalStorage from 'react-use-localstorage';
-import {useNavigate} from 'react-router-dom'
 import './ListaTema.css';
+import useLocalStorage from 'react-use-localstorage';
+import {useNavigate} from 'react-router-dom';
 import { busca } from '../../../services/Service';
 
 function ListaTema() {
   const [temas, setTemas] = useState<Tema[]>([])
   const [token, setToken] = useLocalStorage('token');
-  let navigate = useNavigate();
+  let history = useNavigate();
 
   useEffect(()=>{
     if(token == ''){
       alert("Você precisa estar logado")
-      navigate("/login")
+      history("/login")
     }
   }, [token])
 
+
   async function getTema(){
-    await busca("/tema", setTemas, {
+    await busca("/temas", setTemas, {
       headers: {
         'Authorization': token
       }
     })
   }
 
+
   useEffect(()=>{
     getTema()
   }, [temas.length])
+
   return (
     <>
     {
