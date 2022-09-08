@@ -10,13 +10,14 @@ import { busca } from '../../../services/Service';
 
 function ListaTema() {
   const [temas, setTemas] = useState<Tema[]>([])
+  let navigate = useNavigate();
   const [token, setToken] = useLocalStorage('token');
-  let history = useNavigate();
+  
 
   useEffect(()=>{
     if(token == ''){
       alert("Você precisa estar logado")
-      history("/login")
+      navigate("/login")
     }
   }, [token])
 
