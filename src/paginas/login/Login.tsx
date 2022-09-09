@@ -2,21 +2,23 @@ import React, { useState, useEffect, ChangeEvent } from 'react';
 import { Grid, TextField, Typography, Button } from '@material-ui/core';
 import { Box } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
-import useLocalStorage from 'react-use-localstorage';
 import { login } from '../../services/Service';
 import UserLogin from '../../models/UserLogin';
 import './Login.css';
+import { useDispatch } from 'react-redux';
+import { addToken } from '../../store/tokens/actions';
 
 
 function Login() {
     // redireciona o usuário para determinada pagina
     let navigate = useNavigate();
+    const dispatch = useDispatch();
 
     // const [token, setToken] = useLocalStorage('token_bp')
     // token_bp: "Basic"
 
     // Hooks que vao manipular o nosso local storage para gerar token
-    const [token, setToken] = useLocalStorage('token');
+    const [token, setToken] = useState ('');
 
     // useState defina como uma determinada variavel será inicializada quando o comp. for renderizado  
     const [userLogin, setUserLogin] = useState<UserLogin>(
@@ -42,6 +44,7 @@ function Login() {
             // Hook de efeito colateral, sempre executa uma função quando o que estiver no seu Array é ALTERADO?
             useEffect(()=>{
                 if(token != ''){
+                    dispatch(addToken(token));
                     navigate('/home')
                 }
             }, [token])
