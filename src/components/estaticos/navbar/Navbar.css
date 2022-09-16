@@ -1,5 +1,6 @@
 .bg-menu{
-    background: linear-gradient(36deg, #792f54 8%, #5c1359 89%);
+    /* background: linear-gradient(36deg, #792f54 8%, #5c1359 89%); */
+    background: #521732!important;
 }
 
 .container{
